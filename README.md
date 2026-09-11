@@ -1,6 +1,6 @@
 # TyporaHook — Typora 离线激活 Hook · 工程包
 
-> **版本 v2.1.0**（2026-09-12）· 内含 hook **v2b** · 本工程仅在本地使用，不推送、不依赖任何在线仓库
+> **版本 v2.2.0**（2026-09-12）· 内含 hook **v2b** · 本工程仅在本地使用，不推送、不依赖任何在线仓库
 
 把 2026-08 部署的 DreamNya 离线激活 hook，维护成一个"**可部署、可回滚、可自检、可自测、可打包**"的工程：不修改 Typora 原厂字节码（`atom.compiled.dist.jsc` 原封不动），只替换加载器（`launch.dist.js`）并重打包 `app.asar`；所有改动均可一键还原官方。
 
@@ -11,6 +11,7 @@
 - **状态自检** `tools\verify.ps1`：hook 版本 / 备份链 / 注册表 / CDP 端口，一屏看健康度（只读）
 - **沙盒自测** `tools\test-all.ps1`：部署 → 重复部署 → 回滚 → 还原 四连全自动（只在 `tests\sandbox` 内操作，不碰真机）
 - **发布打包** `tools\build-release.ps1`：生成版本化 ZIP + SHA256
+- **升级适配分析** `tools\analyze.cmd`：新版本 asar 对比 + 差异分级（L1~L4）+ 方案推荐；`-Retune` 从日志实证生成调参 hook
 - **安全设计**：CDP 调试口默认关闭（`TYPORA_HOOK_DEBUG=1` 才开）、530 秒"掉激活"定时器压制、外部调试参数清除防御
 
 ## 🚀 快速开始
@@ -18,6 +19,7 @@
 | 场景 | 操作 |
 |---|---|
 | 部署 / Typora 升级后重装 | 双击 `tools\deploy.cmd`（先加 `-Check` 预览；`-Restart` 完事自动重启 Typora） |
+| 升级适配分析（Typora 更新后第一步） | 双击 `tools\analyze.cmd`（差异分级 + 方案推荐） |
 | 状态自检 | `powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify.ps1` |
 | 沙盒自测（不碰真机；会短暂关闭正在运行的 Typora） | `powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-all.ps1` |
 | 回滚到 v1 钩子 | `tools\deploy.ps1 -HookFile ..\hook\launch.dist.orig.js` |
@@ -41,7 +43,7 @@ TyporaHook\
 
 ## 🧬 版本与兼容
 
-- 工程 **v2.1.0** = hook **v2b**（CDP 门控 + 530s 压制 + 插桩，sha256 `ba544fc3…`）+ 工具链
+- 工程 **v2.2.0** = hook **v2b**（CDP 门控 + 530s 压制 + 插桩，sha256 `ba544fc3…`）+ 工具链
 - 实测环境：**Typora 1.14.9**（Windows x64）；理论兼容 1.14.x；1.15+ 未验证（升级后先跑 `verify.ps1`，异常先 `restore.cmd`）
 - 当前真机部署指纹：`D:\Typora\resources\app.asar` sha256 `1e426e57…`（2026-09-11）
 

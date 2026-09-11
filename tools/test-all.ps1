@@ -1,4 +1,4 @@
-<#  TyporaHook test-all.ps1 (v2.1.0) - full drill inside the sandbox ONLY.
+<#  TyporaHook test-all.ps1 (v2.2.0) - full drill inside the sandbox ONLY.
 
     Steps : reset sandbox -> deploy v2b -> repeat deploy -> rollback to v1 hook -> restore official.
     Verifies the hook hash inside the rebuilt app.asar at every step.
@@ -50,6 +50,11 @@ Copy-Item $payload (Join-Path $res 'app.asar') -Force
 if (-not (Test-Path (Join-Path $sb 'Typora.exe'))) { New-Item -ItemType File (Join-Path $sb 'Typora.exe') | Out-Null }
 $t = Hook-Of (Join-Path $res 'app.asar')
 Check ($t.Size -eq 1383 -and $t.H16 -eq '3ec9df885d96feaa') ('stock before deploy (launch.dist.js ' + $t.Size + ' B)')
+
+# --- step 0b: analyze smoke (sandbox stock vs reference) ---
+$analyze = Join-Path $PSScriptRoot 'analyze-version.ps1'
+$azOut = (& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $analyze -Asar (Join-Path $res 'app.asar') -Quiet) -join "`n"
+Check ($azOut -match 'RESULT: IDENTICAL') 'analyze: sandbox stock = reference'
 
 # --- step 1: deploy v2b ---
 Write-Host ''

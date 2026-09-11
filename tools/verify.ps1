@@ -1,4 +1,4 @@
-<#  TyporaHook verify.ps1 (v2.1.0) - READ-ONLY health check.
+<#  TyporaHook verify.ps1 (v2.2.0) - READ-ONLY health check.
 
     Checks : hook version inside app.asar, backup chain (app.bak\, app.asar.bak),
              license registry values, CDP port 9223, running process state.
@@ -38,7 +38,7 @@ function Find-TyporaPath {
   return $null
 }
 
-Write-Host '== TyporaHook verify v2.1.0 (read-only) =='
+Write-Host '== TyporaHook verify v2.2.0 (read-only) =='
 if (-not $TyporaPath) { $TyporaPath = Find-TyporaPath }
 if (-not $TyporaPath -or -not (Test-Path (Join-Path $TyporaPath 'Typora.exe'))) {
   Write-Host 'X Typora not found. Use: verify.ps1 -TyporaPath "D:\Typora"'

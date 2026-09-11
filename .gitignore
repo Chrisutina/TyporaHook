@@ -7,3 +7,7 @@ tests/sandbox/FakeTypora/resources/app.asar.hooked.bak
 # 发布产物（可随时用 build-release.ps1 重建，不入库）
 release/*.zip
 release/*.sha256
+
+# 分析报告与调参 hook（可随时重建，不入库）
+_reports/
+hook/launch.dist.tuned-*.js
