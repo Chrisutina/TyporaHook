@@ -15,6 +15,7 @@
 - 🧪 `test-all.ps1` 增加 analyze 冒烟断言（共 15 项）
 - 🖱️ `analyze.cmd` 双击即用：分析后可选 部署 / 调参 / 打开报告 / 沙盒自测
 - 📄 分析报告归档到 `_reports\analyze-<时间戳>.md`
+- 🌐 仓库托管至 GitHub：https://github.com/Chrisutina/TyporaHook（2026-09-12）
 - 🐛 修复记录：含中文 .ps1 必须带 UTF-8 BOM（PS5.1 无 BOM 按 ANSI 解析）；探针计数 `@()` 包装坑；历史日志候选误报
 
 ## v2.1.0 — 2026-09-12 —— 工程化封版
