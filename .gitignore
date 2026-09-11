@@ -1,0 +1,9 @@
+# 沙盒运行产物（test-all.ps1 会自动重建，不入库）
+tests/sandbox/FakeTypora/resources/app.bak/
+tests/sandbox/FakeTypora/resources/app.asar
+tests/sandbox/FakeTypora/resources/app.asar.bak
+tests/sandbox/FakeTypora/resources/app.asar.hooked.bak
+
+# 发布产物（可随时用 build-release.ps1 重建，不入库）
+release/*.zip
+release/*.sha256
