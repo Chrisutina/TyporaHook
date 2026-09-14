@@ -1,6 +1,6 @@
 # TyporaHook — Typora 离线激活 Hook · 工程包
 
-> **版本 v2.3.0**（2026-09-12）· 内含 hook **v2b** · 零联网依赖：部署 / 还原 / 自测全部本地完成 · 仓库：https://github.com/Chrisutina/TyporaHook
+> **版本 v2.3.0**（2026-09-14）· 内含 hook **v2b** · 零联网依赖：部署 / 还原 / 自测全部本地完成 · 仓库：https://github.com/Chrisutina/TyporaHook
 
 把 2026-08 部署的 DreamNya 离线激活 hook，维护成一个"**可部署、可回滚、可自检、可自测、可打包**"的工程：不修改 Typora 原厂字节码（`atom.compiled.dist.jsc` 原封不动），只替换加载器（`launch.dist.js`）并重打包 `app.asar`；所有改动均可一键还原官方。
 
@@ -38,7 +38,7 @@ TyporaHook\
 ├─ docs\    · 机制详解.md · 常见问题.md · 测试记录.md
 ├─ hook\    · launch.dist.js（v2b 当前）· launch.dist.orig.js（v1 原版备份）
 ├─ payload\ · app.asar.stock-1.14.9.bak（1.14.9 官方原版 asar 素材）
-├─ tools\   · deploy / restore / verify / test-all / build-release
+├─ tools\   · deploy / restore / verify / test-all / build-release / analyze / menu
 ├─ tests\   · sandbox\FakeTypora（沙盒假安装）
 └─ release\ · 发布产物（ZIP + .sha256）
 ```
