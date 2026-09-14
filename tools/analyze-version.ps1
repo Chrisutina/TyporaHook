@@ -1,4 +1,4 @@
-﻿<#  TyporaHook analyze-version.ps1 (v2.2.0)
+﻿<#  TyporaHook analyze-version.ps1 (v2.3.0)
     - Version-diff analyzer: compares a (new) app.asar against the reference stock asar
       (structure / loader text / bytecode hash+strings+timer-constant / package.json)
       and recommends a scheme (A green / B yellow / C red).
@@ -22,7 +22,7 @@ param(
 )
 $ErrorActionPreference = 'Continue'
 $Root = Split-Path $PSScriptRoot -Parent
-$Ver  = '2.2.0'
+$Ver  = '2.3.0'
 $KnownHooks = @{ 'ba544fc356c59987' = 'v2b (current)'; 'e616232d646d4f2d' = 'v1 (DreamNya)' }
 $TimerRef = 530469
 

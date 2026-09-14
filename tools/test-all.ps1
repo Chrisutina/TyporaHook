@@ -1,4 +1,4 @@
-<#  TyporaHook test-all.ps1 (v2.2.0) - full drill inside the sandbox ONLY.
+<#  TyporaHook test-all.ps1 (v2.3.0) - full drill inside the sandbox ONLY.
 
     Steps : reset sandbox -> deploy v2b -> repeat deploy -> rollback to v1 hook -> restore official.
     Verifies the hook hash inside the rebuilt app.asar at every step.

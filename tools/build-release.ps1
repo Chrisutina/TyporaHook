@@ -1,10 +1,10 @@
-<#  TyporaHook build-release.ps1 (v2.2.0) - package a release zip.
+<#  TyporaHook build-release.ps1 (v2.3.0) - package a release zip.
 
     Produces : release\TyporaHook-v<Version>.zip  (+ .sha256 file, + MANIFEST.txt inside the zip)
     Contents : docs + hook + payload + tools + README + CHANGELOG + LICENSE (+ clean sandbox skeleton)
     Usage    : powershell -NoProfile -ExecutionPolicy Bypass -File build-release.ps1 [-Version 2.1.0]
 #>
-param([string]$Version = '2.2.0')
+param([string]$Version = '2.3.0')
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path $PSScriptRoot -Parent
