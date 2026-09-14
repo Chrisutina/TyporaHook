@@ -1,4 +1,4 @@
-﻿<#  TyporaHook analyze-version.ps1 (v2.3.0)
+﻿<#  TyporaHook analyze-version.ps1 (v2.3.1)
     - Version-diff analyzer: compares a (new) app.asar against the reference stock asar
       (structure / loader text / bytecode hash+strings+timer-constant / package.json)
       and recommends a scheme (A green / B yellow / C red).
@@ -22,7 +22,7 @@ param(
 )
 $ErrorActionPreference = 'Continue'
 $Root = Split-Path $PSScriptRoot -Parent
-$Ver  = '2.3.0'
+$Ver  = '2.3.1'
 $KnownHooks = @{ 'ba544fc356c59987' = 'v2b (current)'; 'e616232d646d4f2d' = 'v1 (DreamNya)' }
 $TimerRef = 530469
 
@@ -289,14 +289,14 @@ try {
   Say ''
   Say '== 方案 (schemes) =='
   Say '  [方案 A · 绿灯] 直接部署: tools\deploy.cmd                     (适用 L1)'
-  Say '  [方案 B · 黄灯] 沙盒演练 -> 部署 -> 调参/观察: 见下方命令组      (适用 L2/L3)'
+  Say '  [方案 B · 黄灯] 先预览 -> 部署 -> 调参/观察: 见下方命令组          (适用 L2/L3)'
   Say '  [方案 C · 红灯] 暂缓部署, 先人工评估差异清单                    (适用 L4)'
   Say ''
   switch ($level) {
     'L1' { Say '  推荐: 方案 A —— 差异仅在外围/元数据, 直接部署。'; Say '        命令: tools\deploy.cmd   (跑完 tools\verify.ps1 复核)' }
     'L2' { Say '  推荐: 方案 B —— 加载器有变化 (hook 内含旧加载器逻辑)。命令组:'
            Say ('    1) 保存新原版: copy "' + $Asar + '" "payload\app.asar.stock-' + $tgV + '.bak"')
-           Say '    2) 沙盒试装: 把新 asar 拷到 tests\sandbox\FakeTypora\resources\app.asar, 再跑 tests\tools\deploy.ps1 -TyporaPath tests\sandbox\FakeTypora'
+           Say '    2) 预览部署: tools\deploy.cmd -Check  (先看检查项, 不做修改)'
            Say '    3) 真机部署: tools\deploy.cmd'
            Say '    4) 启动一次 + 跑 tools\verify.ps1 + 观察 hook 日志 15 分钟' }
     'L3' { Say '  推荐: 方案 B —— 字节码有变化 (530s 定时器假设需复核)。命令组:'
@@ -316,15 +316,17 @@ try {
   Say ('== RESULT: ' + $level + ' ==') -Force
 
   if (($PSBoundParameters.Count -eq 0) -and [Environment]::UserInteractive -and (-not [Console]::IsInputRedirected)) {
+    $hasTest = Test-Path (Join-Path $PSScriptRoot 'test-all.ps1')
     while ($true) {
       Write-Host ''
-      Write-Host '操作: [1] 部署 v2b   [2] 定时器调参(/retune)   [3] 打开报告   [4] 沙盒自测   [0] 退出'
+      if ($hasTest) { Write-Host '操作: [1] 部署 v2b   [2] 定时器调参(/retune)   [3] 打开报告   [4] 沙盒自测   [0] 退出' }
+      else { Write-Host '操作: [1] 部署 v2b   [2] 定时器调参(/retune)   [3] 打开报告   [0] 退出' }
       $c = Read-Host '选择'
       switch ($c) {
         '1' { & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'deploy.ps1') }
         '2' { Invoke-Retune }
         '3' { Invoke-Item $rp }
-        '4' { & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'test-all.ps1') }
+        '4' { if ($hasTest) { & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'test-all.ps1') } else { Write-Host '此功能为开发者本地提供，未随仓库分发。' } }
       }
       if ([string]::IsNullOrEmpty($c) -or $c -eq '0') { break }
     }

@@ -1,13 +1,13 @@
-# 沙盒运行产物（test-all.ps1 会自动重建，不入库）
-tests/sandbox/FakeTypora/resources/app.bak/
-tests/sandbox/FakeTypora/resources/app.asar
-tests/sandbox/FakeTypora/resources/app.asar.bak
-tests/sandbox/FakeTypora/resources/app.asar.hooked.bak
+# 开发者本地内容（不随公开仓库分发；作者本机保留）
+tests/
+tools/test-all.ps1
+tools/build-release.ps1
+docs/测试记录.md
 
-# 发布产物（可随时用 build-release.ps1 重建，不入库）
+# 发布产物（本地重建，不入库）
 release/*.zip
 release/*.sha256
 
-# 分析报告与调参 hook（可随时重建，不入库）
+# 分析报告与调参 hook（本地重建，不入库）
 _reports/
 hook/launch.dist.tuned-*.js
