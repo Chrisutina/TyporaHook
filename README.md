@@ -20,13 +20,13 @@
 | 场景 | 操作 |
 |---|---|
 | 打开工具箱（推荐入口） | 双击根目录 `TyporaHook.cmd`，按编号选命令（每项跑完停住） |
-| 部署 / Typora 升级后重装 | 双击 `tools\deploy.cmd`（先加 `-Check` 预览；`-Restart` 完事自动重启 Typora） |
-| 升级适配分析（Typora 更新后第一步） | 双击 `tools\analyze.cmd`（差异分级 + 方案推荐） |
-| 状态自检 | `powershell -NoProfile -ExecutionPolicy Bypass -File tools\verify.ps1` |
-| 沙盒自测（不碰真机；会短暂关闭正在运行的 Typora） | `powershell -NoProfile -ExecutionPolicy Bypass -File tools\test-all.ps1` |
-| 回滚到 v1 钩子 | `tools\deploy.ps1 -HookFile ..\hook\launch.dist.orig.js` |
-| 完全还原官方 | 双击 `tools\restore.cmd` |
-| 打发布包 | `powershell -NoProfile -ExecutionPolicy Bypass -File tools\build-release.ps1` |
+| 部署 / Typora 升级后重装 | 菜单 `[2]`；或双击 `tools\deploy.cmd`（`-Check` 可先预览，`-Restart` 完事自动重启） |
+| 升级适配分析（Typora 更新后第一步） | 菜单 `[4]`；或双击 `tools\analyze.cmd` |
+| 状态自检（只读体检） | 菜单 `[1]`；脚本本体 `tools\verify.ps1` |
+| 沙盒自测（不碰真机；会短暂关闭正在运行的 Typora） | 菜单 `[6]`；脚本本体 `tools\test-all.ps1` |
+| 回滚到 v1 钩子 | 菜单 `[7]`（换回 DreamNya 原版钩子） |
+| 完全还原官方 | 菜单 `[8]`；或双击 `tools\restore.cmd` |
+| 打发布包 | 菜单 `[9]`；脚本本体 `tools\build-release.ps1` |
 
 要求：Windows 10/11 + 系统自带 PowerShell 5.1（零外部依赖，不需要 Node）。
 
@@ -34,11 +34,12 @@
 
 ```
 TyporaHook\
+├─ TyporaHook.cmd · 工具箱菜单入口（双击）
 ├─ README.md / CHANGELOG.md / LICENSE.md / CHECKSUMS.sha256
 ├─ docs\    · 机制详解.md · 常见问题.md · 测试记录.md
 ├─ hook\    · launch.dist.js（v2b 当前）· launch.dist.orig.js（v1 原版备份）
 ├─ payload\ · app.asar.stock-1.14.9.bak（1.14.9 官方原版 asar 素材）
-├─ tools\   · deploy / restore / verify / test-all / build-release / analyze / menu
+├─ tools\   · deploy / restore / verify / test-all / build-release / analyze / menu / analyze / menu
 ├─ tests\   · sandbox\FakeTypora（沙盒假安装）
 └─ release\ · 发布产物（ZIP + .sha256）
 ```
